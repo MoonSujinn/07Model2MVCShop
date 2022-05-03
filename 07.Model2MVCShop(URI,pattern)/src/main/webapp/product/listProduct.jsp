@@ -50,7 +50,7 @@
 
 <div style="width:98%; margin-left:10px;">
 
-<form name="detailForm" action="/product/listProduct?menu=search" method="post">
+<form name="detailForm" action="/product/listProduct?menu=${param.menu}" method="post">
 
 <table width="100%" height="37" border="0" cellpadding="0"   cellspacing="0">
    <tr>
@@ -190,7 +190,32 @@
 			<td></td>
 			<td align="left">${product.regDate}</td>
 			<td></td>
-			<td align="left">${product.proTranCode}
+			<td align="left">
+			
+						<c:if test= "${param.menu=='search'}" >
+				<c:if test= "${product.proTranCode.trim()=='0'}" >
+				 	판매중				
+				</c:if>
+				<c:if test="${product.proTranCode.trim()!='0'}">
+					재고없음
+				</c:if>
+			</c:if>
+			
+			<c:if test= "${param.menu=='manage'}" >
+				<c:if test="${product.proTranCode.trim()=='0'}">
+					판매중
+				</c:if>
+				<c:if test="${product.proTranCode.trim()=='1'}">
+					구매완료&nbsp;<a href="/purchase/updateTranCode?prodNo=${product.prodNo}&tranCode=2">배송하기</a>
+				</c:if>
+				<c:if test="${product.proTranCode.trim()=='2'}">
+					배송중
+				</c:if>
+				<c:if test="${product.proTranCode.trim()=='3'}">
+					배송완료
+				</c:if>
+			</c:if>
+			
 			</td>		
 		</tr>
 		<tr>

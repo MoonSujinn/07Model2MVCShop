@@ -97,7 +97,7 @@ public class ProductController {
 	
 	
 	@RequestMapping( value="listProduct" )
-	public String listProduct( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
+	public String listProduct( @ModelAttribute("search") Search search , Model model , HttpServletRequest request, @RequestParam("menu") String menu) throws Exception{
 		
 		System.out.println("/product/listProduct : GET / POST");
 		
@@ -113,6 +113,7 @@ public class ProductController {
 		System.out.println(resultPage);
 		
 		// Model °ú View ¿¬°á
+		model.addAttribute("menu",menu);
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("resultPage", resultPage);
 		model.addAttribute("search", search);

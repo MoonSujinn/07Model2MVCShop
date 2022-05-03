@@ -9,13 +9,12 @@
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
 <script type="text/javascript">
-<!--
-// 검색 / page 두가지 경우 모두 Form 전송을 위해 JavaScrpt 이용  
-function fncGetUserList(currentPage) {
+
+function fncGetList(currentPage) {
 	document.getElementById("currentPage").value = currentPage;
    	document.detailForm.submit();		
 }
--->
+
 </script>
 </head>
 
@@ -23,7 +22,7 @@ function fncGetUserList(currentPage) {
 
 <div style="width: 98%; margin-left: 10px;">
 
-<form name="detailForm" action="/listPurchase.do" method="post">
+<form name="detailForm" action="/purchase/listPurchase" method="post">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -64,9 +63,9 @@ function fncGetUserList(currentPage) {
 	<c:forEach var="purchase" items="${list}">
 		<c:set var="i" value="${ i+1 }" />
 		<tr class="ct_list_pop">
-			<td align="center"><a href="/getPurchase.do?tranNo=${purchase.tranNo}">${ i }</td>
+			<td align="center"><a href="/purchase/getPurchase?tranNo=${purchase.tranNo}">${ i }</td>
 			<td></td>
-			<td align="left"><a href="/getUser.do?userId=${user.userId}">${user.userId}</a>
+			<td align="left"><a href="/user/getUser?userId=${user.userId}">${user.userId}</a>
 			<td></td>
 			<td align="left">${purchase.receiverName}</td>
 			<td></td>
@@ -74,7 +73,7 @@ function fncGetUserList(currentPage) {
 			<td></td>
 			<td align="left">
 			<c:if test="${purchase.tranCode.trim()=='1'}">
-				현재 구매완료 상태 입니다. &nbsp;<a href="/updateTranCode.do?prodNo=${purchase.purchaseProd.prodNo}&tranCode=3">물건도착</a>
+				현재 구매완료 상태 입니다. &nbsp;<a href="/purchase/updateTranCode?prodNo=${purchase.purchaseProd.prodNo}&tranCode=3">물건도착</a>
 			</c:if>
 			<c:if test="${purchase.tranCode.trim()=='2'}">
 				현재 배송중 상태 입니다.
